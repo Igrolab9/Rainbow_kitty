@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dpwvwfx477dov"]
+
+[ext_resource type="Texture2D" uid="uid://d1td81u5lh5de" path="res://Pictures/1791898082.png" id="1_oavfp"]
+[ext_resource type="Script" uid="uid://cg1cjlfcjetw7" path="res://Scripts/authors_scene.gd" id="1_u8rah"]
+[ext_resource type="AudioStream" uid="uid://orapk8euxg01" path="res://Sounds/Music/Pastel Pixels.mp3" id="2_oavfp"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_xrivr"]
+stream_count = 1
+stream_0 = ExtResource("2_oavfp")
+
+[node name="Authors_scene" type="CanvasLayer" unique_id=1280290458]
+script = ExtResource("1_u8rah")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1289160306]
+position = Vector2(576, 324)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_oavfp")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1047188639]
+stream = SubResource("AudioStreamPlaylist_xrivr")
+autoplay = true
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=295505527]
+offset_left = 139.0
+offset_top = 208.0
+offset_right = 179.0
+offset_bottom = 248.0
+scale = Vector2(22.92, 2.8400002)
+color = Color(0.047058824, 0.5019608, 0.4745098, 0.5803922)
+
+[node name="Label" type="Label" parent="." unique_id=644448713]
+modulate = Color(0.9254902, 0.9490196, 0.9764706, 1)
+self_modulate = Color(0.9529412, 0.94509804, 0.94509804, 1)
+offset_left = 139.0
+offset_top = 208.0
+offset_right = 1029.0
+offset_bottom = 309.0
+text = "🎮 Кто тащит этот проект?
+🧠 Идея и разработка: Варвара (главный босс, кодер и двигатель этого проекта!)
+🧭 Наставник: Дмитрий (наш ментор, который помогает фиксить баги и не выгорать)
+🎨 Графоний и ассеты: Залетели прямиком с opengameart.org (огромный респект комьюнити за крутой арт!)"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=1624474077]
+offset_left = 502.0
+offset_top = 530.0
+offset_right = 696.0
+offset_bottom = 561.0
+text = "  НАЗАД  "

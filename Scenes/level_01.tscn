@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://ba8cx3p3cs2b1"]
+
+[ext_resource type="Texture2D" uid="uid://c35brllrttb08" path="res://Pictures/17906858933d44.png" id="1_f6slu"]
+[ext_resource type="PackedScene" uid="uid://ctr5qp70igmx3" path="res://Scenes/cat_player.tscn" id="2_fr3la"]
+[ext_resource type="PackedScene" uid="uid://dc1aanu4mw35v" path="res://Scenes/butterflies_spawner.tscn" id="3_pkws4"]
+[ext_resource type="Script" uid="uid://dcqii7y7l5i5n" path="res://Scripts/ui_manager.gd" id="4_s7ctl"]
+[ext_resource type="PackedScene" uid="uid://b867agu5kx7vf" path="res://Scenes/coin_spawner.tscn" id="5_g0uxb"]
+[ext_resource type="AudioStream" uid="uid://0kpkxc8yemwc" path="res://Sounds/Music/High Score.mp3" id="6_cs32c"]
+[ext_resource type="AudioStream" uid="uid://orapk8euxg01" path="res://Sounds/Music/Pastel Pixels.mp3" id="7_rmyfx"]
+[ext_resource type="AudioStream" uid="uid://cy03p8drlccyl" path="res://Sounds/Music/Pixel Bounce.mp3" id="8_i5yiq"]
+[ext_resource type="AudioStream" uid="uid://c4e6yopm1inmn" path="res://Sounds/Music/Pixel Dash (1).mp3" id="9_penfe"]
+[ext_resource type="AudioStream" uid="uid://b47cwjhhy2hnf" path="res://Sounds/Music/Pixel Dash.mp3" id="10_ptkrl"]
+[ext_resource type="AudioStream" uid="uid://ctc6nhrc5vhs2" path="res://Sounds/Music/Pixel Prism.mp3" id="11_n2m85"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(1156, 97)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
+size = Vector2(58, 642)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrivr"]
+radius = 24.0
+height = 474.0
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_xrivr"]
+stream_count = 6
+stream_0 = ExtResource("6_cs32c")
+stream_1 = ExtResource("7_rmyfx")
+stream_2 = ExtResource("8_i5yiq")
+stream_3 = ExtResource("9_penfe")
+stream_4 = ExtResource("10_ptkrl")
+stream_5 = ExtResource("11_n2m85")
+
+[node name="Level_01" type="Node2D" unique_id=139703696]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2021381786]
+position = Vector2(577, 324)
+scale = Vector2(0.8386628, 0.84374994)
+texture = ExtResource("1_f6slu")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1539721499]
+position = Vector2(575, 320)
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=955594010]
+position = Vector2(575, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1819898242]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="Wall1" type="StaticBody2D" parent="." unique_id=438418489]
+position = Vector2(1195, 325)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall1" unique_id=608110984]
+position = Vector2(-19, -2)
+shape = SubResource("RectangleShape2D_13qdw")
+
+[node name="Wall2" type="StaticBody2D" parent="." unique_id=1829761375]
+position = Vector2(-5, 325)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" unique_id=1791348296]
+position = Vector2(-19, -2)
+shape = SubResource("RectangleShape2D_13qdw")
+
+[node name="Cat_player" parent="." unique_id=1849950483 instance=ExtResource("2_fr3la")]
+position = Vector2(86, 520)
+
+[node name="Puddle" type="Area2D" parent="." unique_id=1873181536]
+position = Vector2(378, 527)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puddle" unique_id=1790013341]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_xrivr")
+
+[node name="Butterflies_spawner" parent="." unique_id=733336153 instance=ExtResource("3_pkws4")]
+position = Vector2(0, 129)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1133366541 node_paths=PackedStringArray("player")]
+script = ExtResource("4_s7ctl")
+player = NodePath("../Cat_player")
+font_size = 32
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=171743959]
+offset_left = 18.0
+offset_top = 11.0
+offset_right = 58.0
+offset_bottom = 34.0
+
+[node name="Label2" type="Label" parent="CanvasLayer" unique_id=1743502042]
+offset_left = 127.0
+offset_top = 11.0
+offset_right = 167.0
+offset_bottom = 34.0
+
+[node name="Coin_spawner" parent="." unique_id=902012364 node_paths=PackedStringArray("cat_player") instance=ExtResource("5_g0uxb")]
+position = Vector2(573, 41)
+cat_player = NodePath("../Cat_player")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=471589552]
+stream = SubResource("AudioStreamPlaylist_xrivr")
+volume_db = -15.0
+autoplay = true

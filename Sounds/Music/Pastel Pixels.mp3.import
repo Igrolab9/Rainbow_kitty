@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://orapk8euxg01"
+path="res://.godot/imported/Pastel Pixels.mp3-44906c2b16405c6d917221bfca4a3357.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/Pastel Pixels.mp3"
+dest_files=["res://.godot/imported/Pastel Pixels.mp3-44906c2b16405c6d917221bfca4a3357.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

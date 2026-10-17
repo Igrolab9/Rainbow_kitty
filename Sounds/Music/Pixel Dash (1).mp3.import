@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c4e6yopm1inmn"
+path="res://.godot/imported/Pixel Dash (1).mp3-6ed2ddf8648d258e3343a0783c744e1e.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/Pixel Dash (1).mp3"
+dest_files=["res://.godot/imported/Pixel Dash (1).mp3-6ed2ddf8648d258e3343a0783c744e1e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
