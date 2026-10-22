@@ -3,6 +3,7 @@ extends CharacterBody2D
 # Константы вместо магических чисел
 const SPEED: float = 300.0
 const JUMP_VELOCITY: float = -700.0
+const PUDDLE_COLOR_CHANGE_INTERVAL: float = 5.0  # Интервал смены цвета в луже
 
 @onready var _cat_animations: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _pickup_area: Area2D = $PickupArea
@@ -11,7 +12,13 @@ const JUMP_VELOCITY: float = -700.0
 @onready var _jump_sound: AudioStreamPlayer2D = $Jump_sound
 @onready var _coin_sound: AudioStreamPlayer2D = $Coin_sound
 
+# Экранные кнопки (лежат внутри CanvasLayer)
+@onready var _left_button: Button = $CanvasLayer/LeftButton
+@onready var _right_button: Button = $CanvasLayer/RightButton
+@onready var _jump_button: Button = $CanvasLayer/JumpButton
+
 var _inventory: Cat_Inventory
+var _is_in_puddle: bool = false  # Флаг нахождения в луже
 
 func _ready() -> void:
 	_cat_animations.play("Idle")
@@ -21,8 +28,50 @@ func _ready() -> void:
 	
 	# Подписка на зону подбора
 	_pickup_area.area_entered.connect(_on_pickup_area_area_entered)
+	_pickup_area.area_exited.connect(_on_pickup_area_area_exited)
+	
+	# Кнопки не должны красть фокус клавиатуры
+	_left_button.focus_mode = Control.FOCUS_NONE
+	_right_button.focus_mode = Control.FOCUS_NONE
+	_jump_button.focus_mode = Control.FOCUS_NONE
+	
+	# Подписка на экранные кнопки
+	_left_button.button_down.connect(_on_left_button_down)
+	_left_button.button_up.connect(_on_left_button_up)
+	_right_button.button_down.connect(_on_right_button_down)
+	_right_button.button_up.connect(_on_right_button_up)
+	_jump_button.button_down.connect(_on_jump_button_down)
+	_jump_button.button_up.connect(_on_jump_button_up)
 
+# --- Обработчики экранных кнопок ---
+func _on_left_button_down() -> void:
+	Input.action_press("ui_left")
+
+func _on_left_button_up() -> void:
+	Input.action_release("ui_left")
+
+func _on_right_button_down() -> void:
+	Input.action_press("ui_right")
+
+func _on_right_button_up() -> void:
+	Input.action_release("ui_right")
+
+func _on_jump_button_down() -> void:
+	Input.action_press("ui_accept")
+
+func _on_jump_button_up() -> void:
+	Input.action_release("ui_accept")
+
+# --- Остальная логика без изменений ---
 func _on_pickup_area_area_entered(area: Area2D) -> void:
+	# Логика лужи
+	if area is PaddleZone:
+		_is_in_puddle = true
+		_change_to_random_color()  # Меняем цвет сразу при входе
+		_puddle_color_loop()       # Запускаем цикл смены цвета
+		return
+
+	# Логика сбора предметов
 	if area is CoinCollectible:
 		var coin := area as CoinCollectible
 		coin.coin_collected.connect(_inventory._add_coin)
@@ -32,6 +81,29 @@ func _on_pickup_area_area_entered(area: Area2D) -> void:
 		var butterfly := area as ButterflyCollectible
 		butterfly.butterfly_collected.connect(_inventory.add_butterflies)
 		butterfly.collect()
+
+func _on_pickup_area_area_exited(area: Area2D) -> void:
+	# При выходе из лужи цвет остается последним установленным
+	if area is PaddleZone:
+		_is_in_puddle = false
+
+func _puddle_color_loop() -> void:
+	# Асинхронный цикл смены цвета каждые 2 секунды, пока кот в луже
+	while _is_in_puddle:
+		await get_tree().create_timer(PUDDLE_COLOR_CHANGE_INTERVAL).timeout
+		
+		if _is_in_puddle:  # Двойная проверка на случай выхода из лужи
+			_change_to_random_color()
+
+func _change_to_random_color() -> void:
+	# Генерируем случайный RGB цвет (альфа-канал всегда 1.0)
+	var random_color = Color(randf(), randf(), randf(), 1.0)
+	
+	# Применяем цвет к шейдеру
+	if _cat_animations.material is ShaderMaterial:
+		_cat_animations.material.set_shader_parameter("replacement_color", random_color)
+	else:
+		push_warning("У AnimatedSprite2D кота не назначен ShaderMaterial с шейдером!")
 
 func _physics_process(delta: float) -> void:
 	_handle_jump_input()

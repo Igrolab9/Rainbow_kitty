@@ -9,6 +9,9 @@
 [ext_resource type="AudioStream" uid="uid://bg5fixd6bjxj5" path="res://Sounds/murchanie_kota_-_mrr-mrrr_luchshee_uspokoitelnoe_na_noch.mp3" id="6_2asw2"]
 [ext_resource type="AudioStream" uid="uid://ibfsy752ptn1" path="res://Sounds/playful-cat-sounds_z1wz-rnd.mp3" id="7_8hs28"]
 [ext_resource type="AudioStream" uid="uid://c6arttk41nn22" path="res://Sounds/zvuk-zvona-monet_trimmed.mp3" id="8_8hs28"]
+[ext_resource type="Texture2D" uid="uid://dht4y0eqeqftu" path="res://Pictures/Buttons/LeftButton.png" id="10_ebdwr"]
+[ext_resource type="Texture2D" uid="uid://ub7qutpy8ytb" path="res://Pictures/Buttons/RightButton.png" id="11_nmun3"]
+[ext_resource type="Texture2D" uid="uid://chq7vhy0mdq6e" path="res://Pictures/Buttons/JumpButton.png" id="12_5v3e3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wcpc3"]
 shader = ExtResource("2_2pf65")
@@ -219,3 +222,32 @@ volume_db = -10.0
 [node name="Coin_sound" type="AudioStreamPlayer2D" parent="." unique_id=1064729312]
 stream = ExtResource("8_8hs28")
 volume_db = 10.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1505823205]
+
+[node name="LeftButton" type="Button" parent="CanvasLayer" unique_id=1847688541]
+offset_left = 6.0
+offset_top = 550.0
+offset_right = 320.0
+offset_bottom = 863.0
+scale = Vector2(0.3, 0.3)
+icon = ExtResource("10_ebdwr")
+flat = true
+
+[node name="RightButton" type="Button" parent="CanvasLayer" unique_id=153438344]
+offset_left = 111.0
+offset_top = 549.0
+offset_right = 427.0
+offset_bottom = 864.0
+scale = Vector2(0.3, 0.3)
+icon = ExtResource("11_nmun3")
+flat = true
+
+[node name="JumpButton" type="Button" parent="CanvasLayer" unique_id=316922379]
+offset_left = 1057.0
+offset_top = 548.0
+offset_right = 1377.0
+offset_bottom = 861.0
+scale = Vector2(0.3, 0.3)
+icon = ExtResource("12_5v3e3")
+flat = true

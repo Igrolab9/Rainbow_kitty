@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c35brllrttb08" path="res://Pictures/17906858933d44.png" id="1_f6slu"]
 [ext_resource type="PackedScene" uid="uid://ctr5qp70igmx3" path="res://Scenes/cat_player.tscn" id="2_fr3la"]
 [ext_resource type="PackedScene" uid="uid://dc1aanu4mw35v" path="res://Scenes/butterflies_spawner.tscn" id="3_pkws4"]
+[ext_resource type="Script" uid="uid://c7ouu5fxxt5mq" path="res://Scripts/puddle.gd" id="3_rmyfx"]
 [ext_resource type="Script" uid="uid://dcqii7y7l5i5n" path="res://Scripts/ui_manager.gd" id="4_s7ctl"]
 [ext_resource type="PackedScene" uid="uid://b867agu5kx7vf" path="res://Scenes/coin_spawner.tscn" id="5_g0uxb"]
 [ext_resource type="AudioStream" uid="uid://0kpkxc8yemwc" path="res://Sounds/Music/High Score.mp3" id="6_cs32c"]
@@ -67,6 +68,7 @@ position = Vector2(86, 520)
 
 [node name="Puddle" type="Area2D" parent="." unique_id=1873181536]
 position = Vector2(378, 527)
+script = ExtResource("3_rmyfx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Puddle" unique_id=1790013341]
 rotation = 1.5707964
